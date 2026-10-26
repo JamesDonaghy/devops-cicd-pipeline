@@ -1,6 +1,7 @@
 ﻿import unittest
 from app import app
 
+
 class HealthCheckTestCase(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
@@ -17,6 +18,7 @@ class HealthCheckTestCase(unittest.TestCase):
     def test_unknown_route_returns_404(self):
         response = self.client.get('/does-not-exist')
         self.assertEqual(response.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main()
