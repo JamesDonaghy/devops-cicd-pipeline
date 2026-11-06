@@ -21,7 +21,7 @@ The application exposes a single `/health` endpoint that returns HTTP 200 and a 
 
 ## Project Structure
 
-\\\
+```
 devops-cicd-pipeline/
 ├── .github/workflows/ci.yml
 ├── app.py
@@ -31,7 +31,7 @@ devops-cicd-pipeline/
 ├── .dockerignore
 ├── .gitignore
 └── README.md
-\\\
+```
 
 ## Local Setup (Windows + PowerShell)
 
@@ -42,7 +42,7 @@ devops-cicd-pipeline/
 
 ### Steps
 
-\\\powershell
+```powershell
 git clone https://github.com/JamesDonaghy/devops-cicd-pipeline.git
 cd devops-cicd-pipeline
 
@@ -50,39 +50,39 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 
 pip install -r requirements.txt
-\\\
+```
 
 If you receive an execution-policy error when activating the virtual environment:
 
-\\\powershell
+```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-\\\
+```
 
 Then run the activation command again.
 
 ## Running the Application
 
-\\\powershell
+```powershell
 python app.py
-\\\
+```
 
 In a second terminal:
 
-\\\powershell
+```powershell
 Invoke-WebRequest -Uri http://127.0.0.1:5000/health -UseBasicParsing
-\\\
+```
 
 Expected response: HTTP 200 and `{"status":"healthy"}`.
 
 ## Running the Tests
 
-\\\powershell
+```powershell
 python -m unittest test_app.py -v
-\\\
+```
 
 ## Docker
 
-\\\powershell
+```powershell
 # Build
 docker build -t healthcheck-api .
 
@@ -95,7 +95,7 @@ Invoke-WebRequest -Uri http://127.0.0.1:5000/health -UseBasicParsing
 # Clean up
 docker stop healthcheck-container
 docker rm healthcheck-container
-\\\
+```
 
 ## CI Pipeline
 
@@ -104,12 +104,13 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push and 
 1. Checks out the code
 2. Sets up Python 3.13
 3. Installs dependencies
-4. Runs the unit tests
-5. Builds the Docker image (only if tests pass)
+4. Lints the code with flake8
+5. Runs the unit tests
+6. Builds the Docker image (only if tests pass)
 
 ## Architecture
 
-\\\
+```
 Developer
     │
     │ git push
@@ -120,9 +121,10 @@ GitHub Repository
     ▼
 GitHub Actions (Ubuntu runner)
     ├── Install dependencies
+    ├── Lint with flake8
     ├── Run unit tests
     └── Build Docker image
-\\\
+```
 
 ## Troubleshooting
 
@@ -147,6 +149,7 @@ GitHub Actions (Ubuntu runner)
 - Unit testing
 - Docker
 - GitHub Actions (YAML)
+- Python linting (flake8)
 - Technical documentation
 
 ## Licence
